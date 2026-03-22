@@ -209,19 +209,22 @@ Writing guidelines:
 
 ### Step 4.2: Generate Visual Components
 
-For each visual, create a component using the template library where possible:
+**ALWAYS prefer custom SVG visuals.** Every concept deserves a unique, purpose-built visual that best communicates that specific idea. Do NOT default to template components — they produce generic-looking diagrams. Build custom animated SVGs tailored to the exact concept being explained.
 
-**Prefer template components** for common patterns:
-- Architecture overview → `<ArchitectureDiagram>`
-- Request flow → `<Pipeline>`
-- A vs B comparison → `<ComparisonTable>`
-- State transitions → `<StateMachine>`
-- Layer/stack diagrams → `<LayerStack>`
-- CLI walkthroughs → `<TerminalOutput>`
-- Event sequences → `<Timeline>`
-- Data/service flows → `<FlowDiagram>`
+**Always err on the side of MORE visuals, not fewer.** If a concept can be visualized, it should be. Aim for 15-25+ visuals per topic. Don't skip concepts — every section of every note should have at least one corresponding visual.
 
-**Use custom SVG** only when templates can't express the concept (rare, complex, or highly specific visuals).
+**Template components** (in `src/components/visuals/templates/`) exist ONLY as a reference and fallback. You MAY use them when:
+- The concept genuinely fits a standard pattern (e.g., a simple A vs B table)
+- AND a custom SVG wouldn't add meaningful value over the template
+- This should be rare — maybe 10-20% of visuals at most
+
+**Custom SVG pattern** (the default — use this for 80%+ of visuals):
+- SVG with `viewBox="0 0 600 320"` and `className="w-full"`
+- Use `FadeIn`, `SlideIn`, `ScaleIn` from `animated-box.tsx` for animations
+- Use `framer-motion` for pulsing, rotating, or complex animation effects
+- Draw meaningful diagrams: servers, databases, terminals, code blocks, flow arrows, comparison layouts, state machines, layer stacks — all custom-drawn for the specific concept
+- Each step is a sub-component with `({ active }: { active: boolean })` prop
+- Use `VisualWrapper` with `stepDescription` for consistent layout
 
 Each visual component:
 - Goes in `src/components/visuals/<topic>/<visual-id>.tsx`
@@ -328,7 +331,7 @@ Use a prefix based on the topic:
 
 Before claiming the learn app is complete:
 
-- [ ] Every module has at least 3 visuals (or matches calibration depth)
+- [ ] Every module has at least 10 visuals (more is better — aim for 15-25 per topic)
 - [ ] Every visual has meaningful step descriptions (not generic)
 - [ ] Notes reference actual project files and code
 - [ ] TypeScript strict mode passes
