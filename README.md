@@ -21,13 +21,14 @@ The result is a local learning app your team can use to understand the codebase 
 ### 1. Copy the skill to your project
 
 ```bash
-# Option A: Download just the skill file
-curl -o .claude/skills/build-learn-app.md \
-  https://raw.githubusercontent.com/howincodes/basha-learn-kit/main/skill/build-learn-app.md
+# Option A: Download the skill directory
+mkdir -p .claude/skills/build-learn-app
+curl -o .claude/skills/build-learn-app/SKILL.md \
+  https://raw.githubusercontent.com/howincodes/basha-learn-kit/main/skill/build-learn-app/SKILL.md
 
 # Option B: Clone and copy
 git clone https://github.com/howincodes/basha-learn-kit.git /tmp/learn-kit
-cp /tmp/learn-kit/skill/build-learn-app.md .claude/skills/
+cp -r /tmp/learn-kit/skill/build-learn-app .claude/skills/
 ```
 
 ### 2. Run it with Claude Code
